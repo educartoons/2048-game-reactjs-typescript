@@ -1,15 +1,32 @@
 import { useEffect } from "react"
 import useGameContext from "../hooks/useGameContext"
-import { isAValidKey, KeyNames } from "../utils/constants"
+import { isAValidKey, KeyNames, SQUARE_COLORS } from "../utils/constants"
+import { Square } from "./Square"
 
 export default function Game() {
-  const { squares, moveSquaresDown } = useGameContext()
+  const {
+    squares,
+    moveSquaresDown,
+    moveSquaresUp,
+    moveSquaresLeft,
+    moveSquaresRight,
+  } = useGameContext()
 
   const handleKeyPress = (event: KeyboardEvent) => {
     if (isAValidKey(event.key)) {
+      console.log(event.key)
       switch (event.key) {
         case KeyNames.ArrowDown:
           moveSquaresDown()
+          break
+        case KeyNames.ArrowUp:
+          moveSquaresUp()
+          break
+        case KeyNames.ArrowLeft:
+          moveSquaresLeft()
+          break
+        case KeyNames.ArrowRight:
+          moveSquaresRight()
           break
         default:
           break
@@ -19,25 +36,22 @@ export default function Game() {
 
   useEffect(() => {
     window.addEventListener("keydown", handleKeyPress)
+    console.log("ed")
     return () => {
       window.removeEventListener("keydown", handleKeyPress)
     }
-  }, [])
+  }, [squares])
   return (
-    <div>
-      <div>
-        {squares.map((row, j) => (
-          <div key={j} className="flex">
-            {row.map((square, i) => (
-              <div
-                key={`${j}-${i}`}
-                className="w-[100px] h-[100px] border bg-stone-100 border-stone-200 items-center justify-center"
-              >
-                {square.value}
-              </div>
-            ))}
-          </div>
-        ))}
+    <div
+      className="p-4 rounded-md"
+      style={{ backgroundColor: SQUARE_COLORS.gridColor }}
+    >
+      <div className="grid grid-cols-4 gap-4">
+        {squares.map((row, y) =>
+          row.map((square, x) => (
+            <Square key={`${y}-${x}`} value={square.value} />
+          ))
+        )}
       </div>
     </div>
   )
