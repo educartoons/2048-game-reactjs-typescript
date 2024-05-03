@@ -1,6 +1,6 @@
 import { SQUARE_COLORS } from "../utils/constants"
 import { Tile as TileType } from "../context/game-contex"
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 
 const WIDTH = 100
 const GAP = 16

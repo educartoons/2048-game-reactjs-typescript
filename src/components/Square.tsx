@@ -9,8 +9,8 @@ export function Square({ value }: SquareProps) {
     <div
       className="w-[100px] h-[100px] flex items-center justify-center rounded"
       style={{
-        backgroundColor: SQUARE_COLORS[value].tileColor,
-        color: SQUARE_COLORS[value].textColor,
+        backgroundColor: SQUARE_COLORS.get(value)?.tileColor,
+        color: SQUARE_COLORS.get(value)?.textColor,
       }}
     >
       <span className="text-5xl font-semibold">
